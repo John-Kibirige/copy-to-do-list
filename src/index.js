@@ -5,6 +5,7 @@ import createInput from './modules/editable.js';
 import addTaskToLocal from './modules/addTaskToLocal.js';
 import statusUpdate from './modules/status-update.js';
 import { storeToLocal, retrieveFromLocal } from './modules/save-retrieve.js';
+import resetIndices from './modules/reset-indices.js';
 
 const todoList = document.querySelector('.todo-list');
 
@@ -55,15 +56,7 @@ const deleteSingleItem = (deleteIcon, parent) => {
       });
 
       // reset the ids of the remaining tasks
-      fromLocalStorage = fromLocalStorage.map((task, index) => {
-        const result = {
-          ...task,
-          id: index + 1,
-        };
-        return result;
-      });
-
-      storeToLocal(fromLocalStorage);
+      resetIndices(fromLocalStorage);
     }
   });
 };
@@ -141,14 +134,7 @@ const clearAllCompleted = () => {
     handleItemMenuClick();
 
     // reset the ids of the remaining tasks
-    fromLocalStorage = fromLocalStorage.map((task, index) => {
-      const result = {
-        ...task,
-        id: index + 1,
-      };
-      return result;
-    });
-    storeToLocal(fromLocalStorage);
+    resetIndices(fromLocalStorage);
   }
 };
 
