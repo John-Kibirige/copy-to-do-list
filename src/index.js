@@ -121,15 +121,6 @@ const handleItemMenuClick = () => {
         }
       });
 
-      input.addEventListener('blur', (e) => {
-        e.target.style.border = 'thin solid red';
-        if (newValue) {
-          updateEdited(checkBoxId, newValue, handleItemMenuClick);
-        }
-      });
-
-      // update also if
-
       // delete item
       deleteSingleItem(deleteIcon, parent);
     });
