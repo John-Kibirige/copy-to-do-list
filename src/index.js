@@ -6,6 +6,7 @@ import addTaskToLocal from './modules/addTaskToLocal.js';
 import statusUpdate from './modules/status-update.js';
 import { storeToLocal, retrieveFromLocal } from './modules/save-retrieve.js';
 import resetIndices from './modules/reset-indices.js';
+import validateForm from './modules/formValidation.js';
 
 const todoList = document.querySelector('.todo-list');
 
@@ -167,10 +168,14 @@ const renderFromLocal = () => {
 
 const createTodo = () => {
   const create = () => {
-    const todoValue = document.querySelector('#add-list');
-    addTaskToLocal(todoValue.value);
+    const todoInput = document.querySelector('#add-list');
+    if (todoInput.value.trim().length === 0) {
+      validateForm(todoInput);
+      return;
+    }
+    addTaskToLocal(todoInput.value);
     renderFromLocal();
-    todoValue.value = '';
+    todoInput.value = '';
   };
 
   document.querySelector('.header-form').addEventListener('submit', (e) => {

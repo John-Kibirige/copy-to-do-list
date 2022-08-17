@@ -44,10 +44,19 @@ img {
     justify-content: space-between;
     border-bottom: thin solid #d0c5c5;
     padding: 18px;
+    position: relative;
 
     .todo-title {
       font-weight: 400;
       color: #494242;
+    }
+
+    .error-msg {
+      color: red;
+      position: absolute;
+      top: 21px;
+      right: 163px;
+      font-weight: 500;
     }
   }
 
