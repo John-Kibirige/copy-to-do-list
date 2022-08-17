@@ -76,6 +76,12 @@ img {
 
     img {
       width: 20px;
+      cursor: pointer;
+
+      &:hover {
+        border: thin solid #c2baba;
+        padding: 1px;
+      }
     }
   }
 }

@@ -166,12 +166,19 @@ const renderFromLocal = () => {
 };
 
 const createTodo = () => {
-  document.querySelector('.header-form').addEventListener('submit', (e) => {
-    e.preventDefault();
-    const todoValue = e.target.querySelector('#add-list');
+  const create = () => {
+    const todoValue = document.querySelector('#add-list');
     addTaskToLocal(todoValue.value);
     renderFromLocal();
     todoValue.value = '';
+  };
+
+  document.querySelector('.header-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    create();
+  });
+  document.querySelector('.enter-icon').addEventListener('click', () => {
+    create();
   });
 };
 
