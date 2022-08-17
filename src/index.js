@@ -64,12 +64,11 @@ const deleteSingleItem = (deleteIcon, parent) => {
 // update task after being edited
 const updateEdited = (checkBoxId, input, menuClickEvent) => {
   let fromLocal = JSON.parse(retrieveFromLocal());
-
   fromLocal = fromLocal.map((task) => {
     if (task.id === checkBoxId) {
       const obj = {
         ...task,
-        description: input.value,
+        description: input,
         completed: false,
       };
       return obj;
@@ -107,11 +106,28 @@ const handleItemMenuClick = () => {
       parent.classList.add('active');
 
       // if the user edits the value, update to new value and update local storage
-
+      let newValue = input.value;
       input.addEventListener('change', (e) => {
         e.preventDefault();
-        updateEdited(checkBoxId, input, handleItemMenuClick);
+        newValue = input.value;
       });
+
+      input.addEventListener('keyup', (e) => {
+        if (e.key === 'Enter') {
+          if (newValue) {
+            updateEdited(checkBoxId, newValue, handleItemMenuClick);
+          }
+        }
+      });
+
+      input.addEventListener('blur', (e) => {
+        e.target.style.border = 'thin solid red';
+        if (newValue) {
+          updateEdited(checkBoxId, newValue, handleItemMenuClick);
+        }
+      });
+
+      // update also if
 
       // delete item
       deleteSingleItem(deleteIcon, parent);
@@ -123,7 +139,6 @@ const clearAllCompleted = () => {
   let fromLocalStorage = retrieveFromLocal();
   if (fromLocalStorage.length) {
     fromLocalStorage = JSON.parse(fromLocalStorage);
-
     fromLocalStorage = fromLocalStorage.filter(
       (task) => task.completed === false
     );
